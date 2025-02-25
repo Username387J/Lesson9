@@ -7,7 +7,7 @@ HEIGHT = 600
 TITLE= "SPACE GAME"
 
 satellites = []
-number_of_satellites = 8
+number_of_satellites = 12
 next_satellite = 0
 lines = []
 start_time = 0
@@ -25,7 +25,7 @@ def createSatellite():
 
 
 def draw():
-
+    global total_time
     screen.blit("sky",(0,0))
     num=1
     
@@ -39,14 +39,34 @@ def draw():
 
     if next_satellite < number_of_satellites:
         total_time = time() - start_time
-        screen.draw.text(str(round(total_time)), (10,10), )
+        screen.draw.text(str(round(total_time,1)), (10,10), fontsize=30)
     else:
-        screen.draw.text(str(round(total_time)), (10,10), )
+        screen.draw.text(str(round(total_time,1)), (10,10), fontsize=30)
 
-if next_satellite== 8:
-    screen.draw.text(("Good job"),(300,300), fontsize=55)
+    if next_satellite == 12:
+        screen.draw.text("Good Job", (300,300), fontsize=30)
+
 def update():
     pass
+
+def on_mouse_down(pos):
+    global next_satellite, lines
+    if next_satellite < number_of_satellites:
+        if satellites[next_satellite].collidepoint(pos):
+            if next_satellite:
+                lines.append((satellites[next_satellite-1].pos, satellites[next_satellite].pos))
+            next_satellite = next_satellite + 1   
+        else:
+            lines = []
+            next_satellite = 0
+
+
+
+
+
+
+
+
 
 
 createSatellite()
