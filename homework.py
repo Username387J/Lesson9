@@ -6,7 +6,7 @@ WIDTH = 300
 HEIGHT = 300
 TITLE = "CONNECT THE DOTS"
 dots = []
-num_of_dots = 20
+num_of_dots = 5
 next_dot = 0
 lines = []
 game_over = False
@@ -32,14 +32,15 @@ def draw():
     for line in lines:
         screen.draw.line(line[0], line[1], (0, 255, 255))
 
-    if next_dot == 20:
-        screen.draw.text("Congratulations", (175, 175), fontsize=30)
+    if next_dot == 5:
+        screen.fill("white")
+        screen.draw.text("Congratulations", center=(150, 150), fontsize=30, color="black")
 
     if game_over==True:
         screen.fill("white")
-        screen.draw.text("Time's Up! You got to dot number {next_dot}", center=(175, 175), fontsize=35, color="black")
+        screen.draw.text("Time's Up! You got to dot number",str(next_dot), center=(150, 150), fontsize=30, color="black")
 
-    time_left=screen.draw.text(str(), center=(50,50), fontsize=35, color="black")
+    
 
 def update():
     pass
@@ -50,7 +51,7 @@ def on_mouse_down(pos):
     if next_dot < num_of_dots:
         if dots[next_dot].collidepoint(pos):
             if next_dot:
-                lines.append((dots[next_dot - 1]).pos , dots[next_dot].pos)
+                lines.append((dots[next_dot - 1].pos , dots[next_dot].pos))
             next_dot = next_dot+1
         else:
             lines = []  
